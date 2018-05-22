@@ -43,7 +43,7 @@ build() {
   mkdir -p "${GOPATH}"
   GOPATH="${GOPATH}" go get "${go_base}" || echo "(ignoring go error)"
   cd "${GOPATH}/src/${go_base}"
-  make
+  make -j $(grep -c ^processor /proc/cpuinfo)   # Number of available threads
 }
 
 package() {

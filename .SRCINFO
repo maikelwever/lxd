@@ -38,4 +38,3 @@ pkgbase = lxd
 
 pkgname = lxd
 	install = lxd.install
-
