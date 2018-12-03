@@ -3,7 +3,7 @@
 
 pkgname=lxd
 pkgver=3.7
-pkgrel=1
+pkgrel=2
 pkgdesc="REST API, command line tool and OpenStack integration plugin for LXC."
 arch=('x86_64')
 url="https://github.com/lxc/lxd"
@@ -18,7 +18,7 @@ optdepends=(
     'btrfs-progs: for btrfs support'
 )
 source=(
-    "https://github.com/lxc/$pkgname/archive/$pkgname-$pkgver.tar.gz"
+#    "https://github.com/lxc/$pkgname/archive/$pkgname-$pkgver.tar.gz"
     "lxd.service"
     "lxd.socket"
     "dnsmasq-lxd.conf"
@@ -28,8 +28,7 @@ source=(
     "networkmanager-dnsmasq-lxd.conf"
 )
 
-md5sums=('a3aa2df3afbf5a6b23f736e1cd215f67'
-         'a95280cf05920bd561cae451acb5b27d'
+md5sums=('a95280cf05920bd561cae451acb5b27d'
          '1fb28d8dfe82af71d0675c8e9a0a7293'
          'b1fd16933c1b24aaa9ccc8f5a0e6478c'
          '15ae1bc51684d611bded2839ca55a37b'
@@ -43,6 +42,7 @@ build() {
   mkdir -p "${GOPATH}"
   GOPATH="${GOPATH}" go get "${go_base}" || echo "(ignoring go error)"
   cd "${GOPATH}/src/${go_base}"
+  git checkout lxd-${pkgver}
   make
 }
 
@@ -67,7 +67,7 @@ package() {
     "${pkgdir}/usr/lib/systemd/system/lxd.socket"
 
   # Bash completions
-  install -p -m755 "${srcdir}/${pkgname}-${pkgname}-${pkgver}/scripts/bash/lxd-client" \
+  install -p -m755 "${srcdir}/go/src/github.com/lxc/lxd/scripts/bash/lxd-client" \
     "${pkgdir}/usr/share/bash-completion/completions/lxd"
 
   # Example configuration files
