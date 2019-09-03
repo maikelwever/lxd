@@ -1,0 +1,62 @@
+--- a/Makefile	2019-08-10 00:03:50.000000000 +0000
++++ b/Makefile	2019-09-03 17:51:16.038249635 +0000
+@@ -33,59 +33,21 @@
+ .PHONY: deps
+ deps:
+ 	# sqlite
+-	@if [ -d "$(GOPATH)/deps/sqlite" ]; then \
+-		if [ -d "$(GOPATH)/deps/sqlite/.git" ]; then \
+-			cd "$(GOPATH)/deps/sqlite"; \
+-			git pull; \
+-		fi; \
+-	else \
+-		git clone --depth=1 "https://github.com/canonical/sqlite" "$(GOPATH)/deps/sqlite"; \
+-		git log -1 --format="format:%ci%n" | sed -e 's/ [-+].*$$//;s/ /T/;s/^/D /' > manifest; \
+-		git log -1 --format="format:%H" > manifest.uuid; \
+-	fi
+-
+ 	cd "$(GOPATH)/deps/sqlite" && \
+ 		./configure --enable-replication --disable-amalgamation --disable-tcl && \
+ 		make
+ 
+ 	# libco
+-	@if [ -d "$(GOPATH)/deps/libco" ]; then \
+-		if [ -d "$(GOPATH)/deps/libco/.git" ]; then \
+-			cd "$(GOPATH)/deps/libco"; \
+-			git pull; \
+-		fi; \
+-	else \
+-		git clone --depth=1 "https://github.com/canonical/libco" "$(GOPATH)/deps/libco"; \
+-	fi
+-
+ 	cd "$(GOPATH)/deps/libco" && \
+ 		make
+ 
+ 	# raft
+-	@if [ -d "$(GOPATH)/deps/raft" ]; then \
+-		if [ -d "$(GOPATH)/deps/raft/.git" ]; then \
+-			cd "$(GOPATH)/deps/raft"; \
+-			git pull; \
+-		fi; \
+-	else \
+-		git clone --depth=1 "https://github.com/canonical/raft" "$(GOPATH)/deps/raft"; \
+-	fi
+-
+ 	cd "$(GOPATH)/deps/raft" && \
+ 		autoreconf -i && \
+ 		./configure && \
+ 		make
+ 
+ 	# dqlite
+-	@if [ -d "$(GOPATH)/deps/dqlite" ]; then \
+-		if [ -d "$(GOPATH)/deps/dqlite/.git" ]; then \
+-			cd "$(GOPATH)/deps/dqlite"; \
+-			git pull; \
+-		fi; \
+-	else \
+-		git clone --depth=1 "https://github.com/canonical/dqlite" "$(GOPATH)/deps/dqlite"; \
+-	fi
+-
+ 	cd "$(GOPATH)/deps/dqlite" && \
+ 		autoreconf -i && \
+ 		PKG_CONFIG_PATH="$(GOPATH)/deps/sqlite/:$(GOPATH)/deps/libco/:$(GOPATH)/deps/raft/" ./configure && \
