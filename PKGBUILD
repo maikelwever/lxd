@@ -3,6 +3,7 @@
 # which in turn is based based on old version of this very package
 # Contributor: Asterios Dimitriou <asterios@pci.gr>
 # Contributor: Benjamin Asbach <archlinux-aur.lxd@impl.it>
+# Contributer: nightuser <nightuser.android at gmail.com>
 
 pkgname=lxd
 _pkgname=lxd
