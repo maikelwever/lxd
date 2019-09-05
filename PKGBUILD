@@ -36,7 +36,6 @@ source=(
     "lxd.netctl"
     "dbus-dnsmasq-lxd.conf"
     "networkmanager-dnsmasq-lxd.conf"
-    "remove_deps.patch"
 )
 
 md5sums=('949a2ae0c570a1aa07fa5925428d0c14'
@@ -46,13 +45,7 @@ md5sums=('949a2ae0c570a1aa07fa5925428d0c14'
          '15ae1bc51684d611bded2839ca55a37b'
          '52c641ea0ba5477f5c1a1b857c03dda9'
          'c86b8c441ab014340186acc7799096f2'
-         '427926fddb1537f7a65d0a7274106df5'
-         'f62666388b09e694e124947df42996aa')
-
-prepare() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  patch -Np1 -i ../Remove-deps-update.patch
-}
+         '427926fddb1537f7a65d0a7274106df5')
 
 build() {
   export GOPATH="${srcdir}/${pkgname}-${pkgver}/_dist"
