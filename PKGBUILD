@@ -23,7 +23,9 @@ optdepends=(
     'ceph: for ceph storage driver support'
 )
 options=('!strip' '!emptydirs')
+
 _lxd=github.com/lxc/lxd
+
 source=(
     "https://${_lxd}/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"
     "lxd.service"
