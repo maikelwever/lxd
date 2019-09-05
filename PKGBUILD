@@ -35,7 +35,7 @@ source=(
     "lxd.netctl"
     "dbus-dnsmasq-lxd.conf"
     "networkmanager-dnsmasq-lxd.conf"
-    "Remove-deps-update.patch"
+    "remove_deps.patch"
 )
 
 md5sums=('949a2ae0c570a1aa07fa5925428d0c14'
