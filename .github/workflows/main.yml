@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: clone master repo
-      run: git clone https://github.com/$GITHUB_REPOSITORY master
+      run: git clone https://github.com/maikelwever/lxd master
     - name: clone ci branch
       run: git clone https://github.com/$GITHUB_REPOSITORY ci -b ci
     - name: copy dockerfile
