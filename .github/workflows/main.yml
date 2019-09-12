@@ -1,0 +1,22 @@
+name: Makepkg
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: clone master repo
+      run: git clone https://github.com/maikelwever/lxd master
+    - name: clone ci branch
+      run: git clone https://github.com/$GITHUB_REPOSITORY ci -b ci
+    - name: copy dockerfile
+      run: cp ci/Dockerfile master/
+    - name: Build the Docker image
+      run:  cd master; docker build . --file Dockerfile --tag lxd-aur/test-pkgbuild
+    - name: Run the image
+      run:  docker run -d -t --name lxd-pkg lxd-aur/test-pkgbuild bash
+    - name: Run makepkg
+      run: docker exec lxd-pkg makepkg -sic --noconfirm
+    - name: Run test
+      run: docker exec lxd-pkg lxc version
