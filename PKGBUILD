@@ -7,8 +7,8 @@
 
 pkgname=lxd
 _pkgname=lxd
-pkgver=3.17
-pkgrel=2
+pkgver=3.19
+pkgrel=1
 pkgdesc="REST API, command line tool and OpenStack integration plugin for LXC."
 arch=('x86_64')
 url="https://github.com/lxc/lxd"
@@ -22,7 +22,6 @@ optdepends=(
     'thin-provisioning-tools: for thin provisioning support'
     'btrfs-progs: for btrfs storage driver support'
     'ceph: for ceph storage driver support'
-    'lxcfs: for lxcfs support'
 )
 options=('!strip' '!emptydirs')
 
@@ -39,7 +38,7 @@ source=(
     "networkmanager-dnsmasq-lxd.conf"
 )
 
-md5sums=('fb2bd541ece52f06a22e6486b5a2dc4b'
+md5sums=('d65450fff0495423c558f057e7548a42'
          '6462095d5892d15c4f14310aa263a2a9'
          '1fb28d8dfe82af71d0675c8e9a0a7293'
          'b1fd16933c1b24aaa9ccc8f5a0e6478c'
@@ -54,6 +53,7 @@ build() {
   make deps
   export CGO_CFLAGS="-I${GOPATH}/deps/sqlite/ -I${GOPATH}/deps/libco/ -I${GOPATH}/deps/raft/include/ -I${GOPATH}/deps/dqlite/include/"
   export CGO_LDFLAGS="-L${GOPATH}/deps/sqlite/.libs/ -L${GOPATH}/deps/libco/ -L${GOPATH}/deps/raft/.libs -L${GOPATH}/deps/dqlite/.libs/"
+  export CGO_LDFLAGS_ALLOW="-Wl,-wrap,pthread_create"
   export LD_LIBRARY_PATH="${GOPATH}/deps/sqlite/.libs/:${GOPATH}/deps/libco/:${GOPATH}/deps/raft/.libs/:${GOPATH}/deps/dqlite/.libs/"
   make
 }
